@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://programadorescs.github.io/restcomanda-site/sitemap.xml

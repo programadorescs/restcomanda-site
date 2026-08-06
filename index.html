@@ -1,0 +1,787 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rest Comanda – POS Restaurante | Mesas, comandas y caja en tiempo real</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Rest Comanda digitaliza tu restaurante: el mesero toma el pedido desde el celular, la cocina lo recibe al instante y tú cobras con un solo toque. Comandas, mesas, facturación con Ticket/Boleta/Factura, control de caja y 10 reportes. Descarga la demo gratis." />
+  <meta name="keywords" content="POS restaurante, comanda digital, punto de venta restaurante, mesas en tiempo real, facturación restaurante, control de caja, app para restaurantes Perú, impresión cocina ESC/POS, división de cuenta" />
+  <meta name="author" content="Jack Chavez Saravia" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://programadorescs.github.io/restcomanda-site/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rest Comanda – POS Restaurante" />
+  <meta property="og:description" content="Mesas, comandas y ventas de tu restaurante en tiempo real. Facturación, caja y reportes en un solo lugar. Descarga la demo gratis." />
+  <meta property="og:url" content="https://programadorescs.github.io/restcomanda-site/" />
+  <meta property="og:image" content="https://programadorescs.github.io/restcomanda-site/assets/app-icon-512.png" />
+  <meta property="og:locale" content="es_PE" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Rest Comanda – POS Restaurante" />
+  <meta name="twitter:description" content="Mesas, comandas y ventas de tu restaurante en tiempo real. Descarga la demo gratis." />
+  <meta name="twitter:image" content="https://programadorescs.github.io/restcomanda-site/assets/app-icon-512.png" />
+
+  <!-- PWA-ish icons / favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Nunito', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#FFFBEB', 100: '#FEF3C7', 200: '#FDE68A', 300: '#FCD34D',
+              400: '#FBBF24', 500: '#F59E0B', 600: '#D97706', 700: '#B45309',
+              800: '#92400E', 900: '#78350F',
+            },
+            slate: {
+              950: '#020617', 900: '#0F172A', 850: '#101d3b',
+            },
+            success: '#10B981',
+            danger: '#DC2626',
+            info: '#0EA5E9',
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Rest Comanda - POS Restaurante",
+    "description": "Sistema POS móvil para restaurantes: comandas, mesas en tiempo real, facturación con Ticket/Boleta/Factura, control de caja, impresión a cocina ESC/POS y reportes.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Android",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Versión demo gratuita" },
+    "url": "https://play.google.com/store/apps/details?id=pe.pcs.restcomanda",
+    "image": "https://programadorescs.github.io/restcomanda-site/assets/app-icon-512.png",
+    "inLanguage": "es"
+  }
+  </script>
+</head>
+
+<body class="bg-slate-950 font-body text-slate-300 antialiased selection:bg-brand-500 selection:text-slate-950">
+
+  <!-- ============ NAVBAR ============ -->
+  <header id="navbar" class="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl transition-all duration-300">
+    <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Principal">
+      <a href="#inicio" class="flex items-center gap-2.5" aria-label="Rest Comanda – inicio">
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 shadow-lg shadow-brand-500/30">
+          <svg class="h-5 w-5 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0l3-3m-3 3l-3-3M4 18h16M6 4h12v8a6 6 0 11-12 0V4z" />
+          </svg>
+        </span>
+        <span class="font-display text-lg font-extrabold tracking-tight text-white">
+          Rest <span class="text-brand-500">Comanda</span>
+        </span>
+      </a>
+
+      <div class="hidden items-center gap-1 lg:flex" id="nav-links">
+        <a class="nav-link" href="#problema">¿Por qué?</a>
+        <a class="nav-link" href="#caracteristicas">Características</a>
+        <a class="nav-link" href="#como-funciona">Cómo funciona</a>
+        <a class="nav-link" href="#galeria">La app</a>
+        <a class="nav-link" href="#reportes">Reportes</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#contacto">Contacto</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="#descargar" class="btn-primary hidden sm:inline-flex">Descargar demo</a>
+        <button id="menu-btn" class="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-slate-200 lg:hidden" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+          <svg id="icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" /></svg>
+          <svg id="icon-close" class="hidden h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-t border-white/5 bg-slate-950/95 px-4 pb-4 pt-2 backdrop-blur-xl lg:hidden">
+      <a class="mobile-link" href="#problema">¿Por qué?</a>
+      <a class="mobile-link" href="#caracteristicas">Características</a>
+      <a class="mobile-link" href="#como-funciona">Cómo funciona</a>
+      <a class="mobile-link" href="#galeria">La app</a>
+      <a class="mobile-link" href="#reportes">Reportes</a>
+      <a class="mobile-link" href="#faq">FAQ</a>
+      <a class="mobile-link" href="#contacto">Contacto</a>
+      <a href="#descargar" class="btn-primary mt-3 w-full justify-center">Descargar demo</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <!-- ============ HERO ============ -->
+    <section class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+      <div class="hero-glow pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-60" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-grid pointer-events-none opacity-[0.35]" aria-hidden="true"></div>
+
+      <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
+        <div class="reveal">
+          <span class="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-brand-400">
+            <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
+            POS para restaurantes · Perú y LATAM
+          </span>
+
+          <h1 class="mt-6 font-display text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl xl:text-6xl">
+            Tu restaurante, de la <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">mesa a la caja</span> en tiempo real
+          </h1>
+
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
+            El mesero toma el pedido desde el celular, la cocina lo recibe impreso al instante y tú cobras con un solo toque.
+            <span class="text-slate-200 font-medium">Sin papel, sin errores, sin pérdidas.</span>
+          </p>
+
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a id="play-store-hero" href="https://play.google.com/store/apps/details?id=pe.pcs.restcomanda" target="_blank" rel="noopener" class="btn-primary">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8c-.4.4-.6 1-.6 1.8v16.8c0 .8.2 1.4.6 1.8l.1.1 9.4-9.5V11.4l-9.4-9.5h-.1z"/><path d="M17.3 15.9L14 12.6l-1.7 1.7 4.2 4.2 1.7-1c.9-.5.9-1.7.1-2.2l-1-.4z" opacity=".9"/><path d="M17.3 8.1l-4.9 2.8 1.7 1.7L21 7.6c-.7-.7-2.2-.9-3.7.5z" opacity=".6"/><path d="M2.9 2.2l11.3 11.4 2-2-1.2-.7-9.9-10.1c-.8-.6-1.6-.5-2.2 1.4z" opacity=".4"/></svg>
+              <span>
+                <span class="block text-[10px] font-medium uppercase leading-tight tracking-wider opacity-80">Descárgala gratis en</span>
+                <span class="block font-display text-base font-extrabold leading-tight">Google Play</span>
+              </span>
+            </a>
+            <a href="#caracteristicas" class="btn-ghost">
+              Ver características
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7m14-8l-7 7-7-7" /></svg>
+            </a>
+          </div>
+
+          <ul class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-400">
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Demo gratuita</li>
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Multi-dispositivo</li>
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Se usa desde el primer día</li>
+          </ul>
+        </div>
+
+        <div class="reveal relative mx-auto w-full max-w-[340px]" data-delay="150">
+          <div class="absolute -inset-6 rounded-[3rem] bg-brand-500/20 blur-3xl" aria-hidden="true"></div>
+          <div class="phone-frame relative mx-auto">
+            <div class="phone-notch" aria-hidden="true"></div>
+            <img src="assets/screenshots/rc-001.webp" alt="Pantalla principal de Rest Comanda con el menú de operaciones" class="h-full w-full object-cover" width="608" height="1281" loading="eager" />
+            <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-slate-950/60 to-transparent" aria-hidden="true"></div>
+          </div>
+          <div class="absolute -right-8 top-24 hidden rounded-2xl border border-white/10 bg-slate-900/90 px-4 py-3 shadow-2xl backdrop-blur sm:block animate-float">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-success/15 text-success">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.6 2A9 9 0 1111 4.4a7 7 0 019.6 9.6z" /></svg>
+              </span>
+              <div>
+                <p class="text-xs font-semibold text-white">Comanda enviada a cocina</p>
+                <p class="text-[11px] text-slate-400">Impresión automática · 2 s</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MÉTRICAS ============ -->
+    <section class="border-y border-white/5 bg-slate-900/40" aria-label="Cifras de la app">
+      <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden px-4 py-10 sm:px-6 lg:grid-cols-4 lg:px-8">
+        <div class="reveal stat-item text-center">
+          <p class="font-display text-4xl font-black text-white"><span class="counter" data-count="3">0</span></p>
+          <p class="mt-1 text-sm text-slate-400">Roles de usuario</p>
+        </div>
+        <div class="reveal stat-item text-center" data-delay="100">
+          <p class="font-display text-4xl font-black text-white"><span class="counter" data-count="10">0</span></p>
+          <p class="mt-1 text-sm text-slate-400">Reportes de negocio</p>
+        </div>
+        <div class="reveal stat-item text-center" data-delay="200">
+          <p class="font-display text-4xl font-black text-white"><span class="counter" data-count="2">0</span></p>
+          <p class="mt-1 text-sm text-slate-400">Impresoras: cocina + caja</p>
+        </div>
+        <div class="reveal stat-item text-center" data-delay="300">
+          <p class="font-display text-4xl font-black text-white"><span class="counter" data-count="9">0</span></p>
+          <p class="mt-1 text-sm text-slate-400">Temas de color</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROBLEMA → SOLUCIÓN ============ -->
+    <section id="problema" class="relative py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">¿Por qué Rest Comanda?</span>
+          <h2 class="section-title">¿Te suena familiar?</h2>
+          <p class="mt-4 text-lg text-slate-400">Cada pedido perdido es una venta que se va. Rest Comanda elimina el caos del papel de una vez por todas.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 md:grid-cols-3">
+          <article class="reveal card group">
+            <div class="card-icon bg-danger/10 text-danger">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M6 4h12v16l-3-2-3 2-3-2-3 2V4z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">¿Aún anotas pedidos en papel?</h3>
+            <p class="mt-3 leading-relaxed text-slate-400">Papelitos que se pierden, letras ilegibles y comandas que nunca llegan a cocina. Cada error es un cliente molesto.</p>
+            <p class="mt-4 text-sm font-semibold text-brand-400">→ Comandas digitales con comentarios por ítem y modalidad "para llevar". Nada se pierde.</p>
+          </article>
+
+          <article class="reveal card group" data-delay="100">
+            <div class="card-icon bg-brand-500/10 text-brand-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m10 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0M9 17a2 2 0 11-4 0m4 0a2 2 0 10-4 0" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">¿La cocina no recibe a tiempo?</h3>
+            <p class="mt-3 leading-relaxed text-slate-400">Gritos, carreras y pedidos fríos mientras el mesero dicta de memoria. La cocina trabaja a ciegas.</p>
+            <p class="mt-4 text-sm font-semibold text-brand-400">→ Impresión automática de la comanda en la impresora de cocina, por red o Bluetooth.</p>
+          </article>
+
+          <article class="reveal card group" data-delay="200">
+            <div class="card-icon bg-info/10 text-info">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.2 0-4 .9-4 2s1.8 2 4 2 4 .9 4 2-1.8 2-4 2m0-8c1.3 0 2.5.3 3.3.8M12 8V6m0 8v2m0 4a8 8 0 100-16 8 8 0 000 16z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">¿La caja no cuadra al final del día?</h3>
+            <p class="mt-3 leading-relaxed text-slate-400">Ventas no registradas, descuentos de memoria y cuadres que no cierran. Dinero que desaparece sin explicación.</p>
+            <p class="mt-4 text-sm font-semibold text-brand-400">→ Apertura, ventas en vivo y cierre con cuadre automático: sabrás cada sol, al centavo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CARACTERÍSTICAS ============ -->
+    <section id="caracteristicas" class="relative bg-slate-900/40 py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">Características</span>
+          <h2 class="section-title">Todo tu restaurante, en una sola app</h2>
+          <p class="mt-4 text-lg text-slate-400">Del salón a la cocina, de la caja a los reportes. Rest Comanda cubre el ciclo completo de la venta.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal feature-card">
+            <div class="card-icon bg-success/10 text-success">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h18M4 5v14a1 1 0 001 1h14a1 1 0 001-1V5M9 3v4m6-4v4" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">Mesas en tiempo real</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">Estados libres, ocupadas y reservadas visibles en todos los dispositivos al instante. Nadie vende una mesa ocupada.</p>
+          </article>
+
+          <article class="reveal feature-card" data-delay="80">
+            <div class="card-icon bg-brand-500/10 text-brand-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">Comandas sin papel</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">Pedidos multi-mesa, comentarios por producto, agregar o quitar ítems y cambiar de mesa sin perder la comanda.</p>
+          </article>
+
+          <article class="reveal feature-card" data-delay="160">
+            <div class="card-icon bg-danger/10 text-danger">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m10 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0M9 17a2 2 0 11-4 0m4 0a2 2 0 10-4 0" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">Cocina instantánea</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">La comanda se imprime sola en la impresora de cocina. ESC/POS por red TCP o Bluetooth, con dos destinos independientes.</p>
+          </article>
+
+          <article class="reveal feature-card" data-delay="240">
+            <div class="card-icon bg-info/10 text-info">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5.5.5h.01M14.5 15h.01M12 21a9 9 0 100-18 9 9 0 000 18z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">Facturación completa</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">Ticket, Boleta o Factura con IGV e ICBPER automáticos, correlativos sin errores, venta directa y división de cuenta.</p>
+          </article>
+
+          <article class="reveal feature-card" data-delay="320">
+            <div class="card-icon bg-success/10 text-success">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.2 0-4 .9-4 2s1.8 2 4 2 4 .9 4 2-1.8 2-4 2m0-8c1.3 0 2.5.3 3.3.8M12 8V6m0 8v2m0 4a8 8 0 100-16 8 8 0 000 16z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">Caja y cuadre automático</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">Apertura de turno, ventas en vivo por forma de pago (efectivo, Yape, Plin, tarjeta) y cierre con diferencia calculada.</p>
+          </article>
+
+          <article class="reveal feature-card" data-delay="400">
+            <div class="card-icon bg-brand-500/10 text-brand-400">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-lg font-extrabold text-white">10 reportes de negocio</h3>
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-400">Ventas, utilidad neta, top productos, horas punta, ranking del staff y auditoría. Decide con datos, no con intuición.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CÓMO FUNCIONA ============ -->
+    <section id="como-funciona" class="relative py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">Cómo funciona</span>
+          <h2 class="section-title">Tres pasos. Eso es todo.</h2>
+          <p class="mt-4 text-lg text-slate-400">De la mesa a la caja, todo conectado en tiempo real.</p>
+        </div>
+
+        <div class="relative mt-16 grid gap-10 md:grid-cols-3">
+          <div class="absolute left-0 right-0 top-10 hidden h-px bg-gradient-to-r from-transparent via-brand-500/40 to-transparent md:block" aria-hidden="true"></div>
+
+          <div class="reveal relative text-center">
+            <div class="step-number mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-brand-500/30 bg-brand-500/10 font-display text-3xl font-black text-brand-400">1</div>
+            <h3 class="mt-6 font-display text-xl font-extrabold text-white">El mesero toma el pedido</h3>
+            <p class="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-slate-400">Selecciona la mesa, arma el carrito con cantidades y añade comentarios para la cocina.</p>
+          </div>
+
+          <div class="reveal relative text-center" data-delay="120">
+            <div class="step-number mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-brand-500/30 bg-brand-500/10 font-display text-3xl font-black text-brand-400">2</div>
+            <h3 class="mt-6 font-display text-xl font-extrabold text-white">La cocina lo recibe al instante</h3>
+            <p class="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-slate-400">La comanda se imprime automáticamente en la impresora de cocina. Sin gritos ni papeles perdidos.</p>
+          </div>
+
+          <div class="reveal relative text-center" data-delay="240">
+            <div class="step-number mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-brand-500/30 bg-brand-500/10 font-display text-3xl font-black text-brand-400">3</div>
+            <h3 class="mt-6 font-display text-xl font-extrabold text-white">Tú cobras y controlas</h3>
+            <p class="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-slate-400">Factura con Ticket/Boleta/Factura, registra el pago en caja y consulta tus reportes al momento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALERÍA ============ -->
+    <section id="galeria" class="relative bg-slate-900/40 py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">La app</span>
+          <h2 class="section-title">Diseñada para el día a día del restaurante</h2>
+          <p class="mt-4 text-lg text-slate-400">Interfaz intuitiva que tu personal usa desde el primer día, sin capacitación.</p>
+        </div>
+
+        <div class="reveal relative mx-auto mt-14 max-w-5xl" data-delay="100">
+          <div class="carousel relative overflow-hidden rounded-3xl" id="carousel">
+            <div class="carousel-track flex transition-transform duration-500 ease-out" id="carousel-track">
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-001.webp" alt="Menú principal de Rest Comanda" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Todo desde el menú principal</p>
+                    <p class="mt-2 text-sm text-slate-400">Comandas, facturación, caja y reportes a un toque, filtrados por el rol de cada usuario.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-002.webp" alt="Catálogo de productos para realizar pedidos" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Catálogo para pedir rápido</p>
+                    <p class="mt-2 text-sm text-slate-400">Busca por nombre o filtra por categoría, agrega cantidades y comentarios por producto.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-003.webp" alt="Selección de mesa" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Elige mesas en vivo</p>
+                    <p class="mt-2 text-sm text-slate-400">Ocupa una o varias mesas a la vez. El estado de cada una se actualiza al instante en todos los celulares.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-004.webp" alt="Confirmación de pedido" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Confirma la comanda</p>
+                    <p class="mt-2 text-sm text-slate-400">Revisa el carrito, agrega el nombre del cliente, activa "para llevar" y envía directo a cocina.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-005.webp" alt="Comandas pendientes" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Comandas pendientes en vivo</p>
+                    <p class="mt-2 text-sm text-slate-400">Agrega productos, cambia de mesa o reimprime la comanda sin salir de la lista.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-006.webp" alt="Facturar comandas" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Factura con un toque</p>
+                    <p class="mt-2 text-sm text-slate-400">Ticket, Boleta o Factura, cliente por defecto o buscado por DNI/RUC, e impresión del ticket al instante.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-007.webp" alt="Confirmación y facturación" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Montos calculados por el servidor</p>
+                    <p class="mt-2 text-sm text-slate-400">IGV, ICBPER y correlativos automáticos. Cero errores de cálculo y cero duplicados.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-slide w-full shrink-0 px-4 py-6">
+                <div class="mx-auto flex flex-col items-center gap-6 sm:flex-row sm:justify-center sm:gap-12">
+                  <div class="phone-frame-sm shrink-0"><img src="assets/screenshots/rc-008.webp" alt="Reporte de facturación" loading="lazy" width="608" height="1281" /></div>
+                  <div class="max-w-sm text-center sm:text-left">
+                    <p class="font-display text-lg font-extrabold text-white">Reportes siempre al día</p>
+                    <p class="mt-2 text-sm text-slate-400">Reimprime tickets, anula comprobantes con nota de crédito y revisa tu facturación por rango.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <button id="gallery-prev" class="gallery-btn -left-4 top-1/2 sm:-left-8" aria-label="Captura anterior">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button id="gallery-next" class="gallery-btn -right-4 top-1/2 sm:-right-8" aria-label="Siguiente captura">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </button>
+
+          <div class="mt-6 flex justify-center gap-2" id="gallery-dots" role="tablist" aria-label="Navegación de capturas"></div>
+
+          <p class="mt-4 text-center text-xs text-slate-500">
+            Capturas de la versión demo. La app incluye además caja, gastos, clientes, usuarios, configuración y más pantallas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROLES ============ -->
+    <section class="relative py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">Roles</span>
+          <h2 class="section-title">Cada uno hace lo suyo. Tú controlas todo.</h2>
+          <p class="mt-4 text-lg text-slate-400">Tres perfiles diseñados para que el equipo trabaje sin fricciones y con responsabilidades claras.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 md:grid-cols-3">
+          <article class="reveal role-card">
+            <div class="flex items-center justify-between">
+              <span class="role-chip bg-info/10 text-info">Mesero</span>
+              <svg class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">MESERO</h3>
+            <ul class="mt-4 space-y-2.5 text-sm text-slate-400">
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Toma pedidos multi-mesa</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Ve sus comandas pendientes</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Gestiona sus clientes</li>
+            </ul>
+          </article>
+
+          <article class="reveal role-card" data-delay="120">
+            <div class="flex items-center justify-between">
+              <span class="role-chip bg-brand-500/10 text-brand-400">Cajero</span>
+              <svg class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h2m4 0h4M5 6h14a1 1 0 011 1v12a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1z" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">CAJERO</h3>
+            <ul class="mt-4 space-y-2.5 text-sm text-slate-400">
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Factura y venta directa</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Abre, opera y cierra caja</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Registra gastos</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Reportes de facturas y caja</li>
+            </ul>
+          </article>
+
+          <article class="reveal role-card" data-delay="240">
+            <div class="flex items-center justify-between">
+              <span class="role-chip bg-success/10 text-success">Administrador</span>
+              <svg class="h-6 w-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 100-6 3 3 0 000 6zm7-3a7 7 0 11-14 0 7 7 0 0114 0zM12 3v2m0 14v2M4.9 4.9l1.4 1.4m11.4 11.4l1.4 1.4M3 12h2m14 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-extrabold text-white">ADMINISTRADOR</h3>
+            <ul class="mt-4 space-y-2.5 text-sm text-slate-400">
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Catálogo, mesas y usuarios</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>IGV, series y comprobantes</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>10 reportes y dashboard ejecutivo</li>
+              <li class="flex gap-2.5"><svg class="mt-0.5 h-4 w-4 shrink-0 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Auditoría de eliminaciones</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REPORTES ============ -->
+    <section id="reportes" class="relative bg-slate-900/40 py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <span class="section-tag">Reportes</span>
+          <h2 class="section-title">Sabe qué vendes, cuándo vendes y quién vende</h2>
+          <p class="mt-4 text-lg text-slate-400">Diez reportes para tomar decisiones con datos reales, no con suposiciones.</p>
+        </div>
+
+        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="reveal report-card">
+            <svg class="h-7 w-7 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Facturación mensual</h3>
+            <p class="mt-2 text-sm text-slate-400">Gráfico de barras por mes con total anual. Compara tu crecimiento de un vistazo.</p>
+          </article>
+
+          <article class="reveal report-card" data-delay="80">
+            <svg class="h-7 w-7 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.2 0-4 .9-4 2s1.8 2 4 2 4 .9 4 2-1.8 2-4 2m0-8c1.3 0 2.5.3 3.3.8M12 8V6m0 8v2m0 4a8 8 0 100-16 8 8 0 000 16z" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Resumen financiero</h3>
+            <p class="mt-2 text-sm text-slate-400">Ventas, gastos, utilidad neta y ticket promedio por rango de fechas.</p>
+          </article>
+
+          <article class="reveal report-card" data-delay="160">
+            <svg class="h-7 w-7 text-info" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Horas punta</h3>
+            <p class="mt-2 text-sm text-slate-400">Intervalos de 2 horas ordenados por demanda. Planifica tu personal y tu cocina.</p>
+          </article>
+
+          <article class="reveal report-card" data-delay="240">
+            <svg class="h-7 w-7 text-danger" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.5a2 2 0 013.04 0l6.5 7.5a2 2 0 01-1.5 3.3H6.48a2 2 0 01-1.5-3.3l6.5-7.5zM8 21h8" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Top productos</h3>
+            <p class="mt-2 text-sm text-slate-400">Los productos que más venden y cuánto recaudan. Optimiza tu carta con datos.</p>
+          </article>
+
+          <article class="reveal report-card" data-delay="320">
+            <svg class="h-7 w-7 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Ranking del staff</h3>
+            <p class="mt-2 text-sm text-slate-400">Comandas facturadas por empleado. Reconoce y motiva a tu mejor equipo.</p>
+          </article>
+
+          <article class="reveal report-card" data-delay="400">
+            <svg class="h-7 w-7 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 100-6 3 3 0 000 6zm7-3a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <h3 class="mt-4 font-display text-lg font-extrabold text-white">Ventas por categoría</h3>
+            <p class="mt-2 text-sm text-slate-400">Participación de cada categoría con barras y colores. Identifica tus líneas fuertes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPATIBILIDAD ============ -->
+    <section class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-8 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-850 p-8 sm:p-12 lg:grid-cols-3 lg:gap-10">
+          <div class="lg:col-span-1">
+            <h2 class="font-display text-2xl font-black text-white sm:text-3xl">Funciona con tu equipo y tus equipos</h2>
+            <p class="mt-3 text-slate-400">Android 9 o superior, cualquier teléfono o tablet. Sin instalaciones complejas, sin técnicos.</p>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-3 lg:col-span-2 lg:gap-8">
+            <div class="flex items-start gap-4">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/5 text-brand-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
+              </span>
+              <div>
+                <p class="font-display text-sm font-extrabold text-white">Imprenta ESC/POS</p>
+                <p class="mt-1 text-xs leading-relaxed text-slate-400">Red TCP o Bluetooth. Una para cocina, otra para caja.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/5 text-success">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a5 5 0 003.9-8A7 7 0 0012 2a7 7 0 00-6.9 9A5 5 0 008 21z" /></svg>
+              </span>
+              <div>
+                <p class="font-display text-sm font-extrabold text-white">Multidispositivo</p>
+                <p class="mt-1 text-xs leading-relaxed text-slate-400">Meseros, cajeros y administrador conectados en tiempo real.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/5 text-info">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.6 2A9 9 0 1111 4.4a7 7 0 019.6 9.6z" /></svg>
+              </span>
+              <div>
+                <p class="font-display text-sm font-extrabold text-white">Datos seguros</p>
+                <p class="mt-1 text-xs leading-relaxed text-slate-400">Cloud cifrado, respaldado y con auditoría de cambios.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA FINAL ============ -->
+    <section id="descargar" class="relative overflow-hidden py-24">
+      <div class="hero-glow pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 opacity-40" aria-hidden="true"></div>
+      <div class="reveal relative mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <h2 class="font-display text-3xl font-black tracking-tight text-white sm:text-5xl">
+          Descarga la <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-brand-600">demo gratis</span>
+        </h2>
+        <p class="mx-auto mt-5 max-w-xl text-lg text-slate-400">
+          Prueba todas las funciones hoy mismo. Cuando quieras ponerla en producción, contáctanos y activamos tu restaurante en minutos.
+        </p>
+        <div class="mt-9 flex justify-center">
+          <a id="play-store-cta" href="https://play.google.com/store/apps/details?id=pe.pcs.restcomanda" target="_blank" rel="noopener" class="btn-primary btn-xl">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8c-.4.4-.6 1-.6 1.8v16.8c0 .8.2 1.4.6 1.8l.1.1 9.4-9.5V11.4l-9.4-9.5h-.1z"/><path d="M17.3 15.9L14 12.6l-1.7 1.7 4.2 4.2 1.7-1c.9-.5.9-1.7.1-2.2l-1-.4z" opacity=".9"/><path d="M17.3 8.1l-4.9 2.8 1.7 1.7L21 7.6c-.7-.7-2.2-.9-3.7.5z" opacity=".6"/><path d="M2.9 2.2l11.3 11.4 2-2-1.2-.7-9.9-10.1c-.8-.6-1.6-.5-2.2 1.4z" opacity=".4"/></svg>
+            <span>
+              <span class="block text-xs font-medium uppercase leading-tight tracking-wider opacity-80">Descárgala gratis en</span>
+              <span class="block font-display text-xl font-extrabold leading-tight">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq" class="bg-slate-900/40 py-24">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6">
+        <div class="reveal text-center">
+          <span class="section-tag">Preguntas frecuentes</span>
+          <h2 class="section-title">Resolvemos tus dudas</h2>
+        </div>
+
+        <div class="reveal mt-12 space-y-3" data-delay="100">
+          <details class="faq-item group">
+            <summary class="faq-summary">
+              <span>¿La demo es gratis?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="faq-body">Sí. La versión demo en Google Play es gratuita e incluye todas las funciones del sistema para que la pruebes con tus propios datos.</p>
+          </details>
+
+          <details class="faq-item group">
+            <summary class="faq-summary">
+              <span>¿Qué necesito para empezar?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="faq-body">Un teléfono o tablet con Android 9 o superior. Al contratar el servicio te entregamos las credenciales de acceso y configuramos tu empresa, impresoras y catálogo.</p>
+          </details>
+
+          <details class="faq-item group">
+            <summary class="faq-summary">
+              <span>¿Qué impresoras soporta?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="faq-body">Impresoras térmicas ESC/POS conectadas por red (TCP) o Bluetooth. Configuras dos destinos independientes: cocina para comandas y caja para tickets.</p>
+          </details>
+
+          <details class="faq-item group">
+            <summary class="faq-summary">
+              <span>¿Necesito internet para operar?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="faq-body">Sí, para la operación en tiempo real entre dispositivos. El catálogo de productos queda disponible sin conexión para que la toma de pedidos no se detenga.</p>
+          </details>
+
+          <details class="faq-item group">
+            <summary class="faq-summary">
+              <span>¿Cómo obtengo soporte?</span>
+              <svg class="faq-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <p class="faq-body">Escríbenos a programadorescs@gmail.com o llámanos al +51 956 414 993. Respondemos rápido y en español.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto" class="py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <span class="section-tag">Contacto</span>
+            <h2 class="section-title">Lleva tu restaurante al siguiente nivel</h2>
+            <p class="mt-4 text-lg text-slate-400">
+              ¿Quieres el sistema completo para tu negocio? Cuéntanos cuántas mesas atiendes y te cotizamos la activación sin compromiso.
+            </p>
+            <div class="mt-8 space-y-4">
+              <a href="mailto:programadorescs@gmail.com" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4 transition hover:border-brand-500/40 hover:bg-slate-900">
+                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/10 text-brand-400">
+                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </span>
+                <span>
+                  <span class="block text-xs uppercase tracking-wider text-slate-500">Correo</span>
+                  <span class="font-medium text-white">programadorescs@gmail.com</span>
+                </span>
+              </a>
+              <a href="tel:+51956414993" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4 transition hover:border-brand-500/40 hover:bg-slate-900">
+                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-success/10 text-success">
+                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.3a1 1 0 01.98.8l.9 3.6a1 1 0 01-.44 1.1L8.1 9.9a12 12 0 006 6l1.4-1.64a1 1 0 011.1-.44l3.6.9a1 1 0 01.8.98V19a2 2 0 01-2 2h-1C9.7 21 3 14.3 3 6V5z" /></svg>
+                </span>
+                <span>
+                  <span class="block text-xs uppercase tracking-wider text-slate-500">Teléfono / WhatsApp</span>
+                  <span class="font-medium text-white">+51 956 414 993</span>
+                </span>
+              </a>
+              <a href="https://programadorescs.com" target="_blank" rel="noopener" class="flex items-center gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4 transition hover:border-brand-500/40 hover:bg-slate-900">
+                <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-info/10 text-info">
+                  <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9" /></svg>
+                </span>
+                <span>
+                  <span class="block text-xs uppercase tracking-wider text-slate-500">Desarrollador</span>
+                  <span class="font-medium text-white">programadorescs.com</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="reveal rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-850 p-8 sm:p-10" data-delay="150">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-500/15 text-brand-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </span>
+              <p class="font-display text-lg font-extrabold text-white">¿Qué incluye el servicio completo?</p>
+            </div>
+            <ul class="mt-6 space-y-3.5 text-sm text-slate-300">
+              <li class="flex gap-3"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Acceso multi-dispositivo ilimitado para tu personal</li>
+              <li class="flex gap-3"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Empresa, catálogo, mesas, cajas e impresoras configuradas por nosotros</li>
+              <li class="flex gap-3"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Boleta y Factura con tu serie y RUC (personalización)</li>
+              <li class="flex gap-3"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Licencia por vigencia y soporte directo</li>
+              <li class="flex gap-3"><svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>Actualizaciones incluidas: división de cuenta, nuevos reportes y más</li>
+            </ul>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href="mailto:programadorescs@gmail.com?subject=Quiero%20Rest%20Comanda%20para%20mi%20restaurante" class="btn-primary flex-1 justify-center">Solicitar cotización</a>
+              <a href="https://play.google.com/store/apps/details?id=pe.pcs.restcomanda" target="_blank" rel="noopener" class="btn-ghost flex-1 justify-center">Probar la demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-white/5 bg-slate-900/60 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
+        <a href="#inicio" class="flex items-center gap-2.5" aria-label="Rest Comanda – inicio">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-600">
+            <svg class="h-5 w-5 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0l3-3m-3 3l-3-3M4 18h16M6 4h12v8a6 6 0 11-12 0V4z" /></svg>
+          </span>
+          <span class="font-display text-lg font-extrabold text-white">Rest <span class="text-brand-500">Comanda</span></span>
+        </a>
+
+        <nav class="flex flex-wrap justify-center gap-x-7 gap-y-3 text-sm text-slate-400" aria-label="Pie de página">
+          <a class="footer-link" href="#caracteristicas">Características</a>
+          <a class="footer-link" href="#galeria">La app</a>
+          <a class="footer-link" href="#reportes">Reportes</a>
+          <a class="footer-link" href="#faq">FAQ</a>
+          <a class="footer-link" href="#contacto">Contacto</a>
+          <a class="footer-link" href="https://github.com/programadorescs/RestComanda" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="https://play.google.com/store/apps/details?id=pe.pcs.restcomanda" target="_blank" rel="noopener" aria-label="Descargar Rest Comanda en Google Play" class="btn-primary !py-2 !px-4 !text-sm">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8c-.4.4-.6 1-.6 1.8v16.8c0 .8.2 1.4.6 1.8l.1.1 9.4-9.5V11.4l-9.4-9.5h-.1z"/><path d="M17.3 15.9L14 12.6l-1.7 1.7 4.2 4.2 1.7-1c.9-.5.9-1.7.1-2.2l-1-.4z" opacity=".9"/><path d="M17.3 8.1l-4.9 2.8 1.7 1.7L21 7.6c-.7-.7-2.2-.9-3.7.5z" opacity=".6"/><path d="M2.9 2.2l11.3 11.4 2-2-1.2-.7-9.9-10.1c-.8-.6-1.6-.5-2.2 1.4z" opacity=".4"/></svg>
+            Google Play
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-xs text-slate-500 sm:flex-row">
+        <p>© 2026 Rest Comanda · POS Restaurante. Desarrollado por <a class="footer-link" href="https://programadorescs.com" target="_blank" rel="noopener">programadorescs.com</a> — Ica, Perú.</p>
+        <p>Android es una marca de Google LLC.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

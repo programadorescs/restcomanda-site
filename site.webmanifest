@@ -1,0 +1,14 @@
+﻿{
+  "name": "Rest Comanda - POS Restaurante",
+  "short_name": "Rest Comanda",
+  "description": "POS móvil para restaurantes: mesas, comandas, facturación, caja y reportes en tiempo real.",
+  "lang": "es",
+  "start_url": "/restcomanda-site/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#F59E0B",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
